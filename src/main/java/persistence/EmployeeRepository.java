@@ -30,7 +30,7 @@ public class EmployeeRepository {
     public void save(Employee employee) throws IOException {
         String serializedEmployee = employeeFileSerializer.invoke(employee);
 
-        Path path = Paths.get(employee.getFullName().replace(" ", "_") + ".rec");
+        Path path = Paths.get("src/main/resources/" +employee.getFullName().replace(" ", "_") + ".rec");
         Files.write(path, serializedEmployee.getBytes());
     }
 
