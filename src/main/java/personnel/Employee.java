@@ -1,6 +1,4 @@
-package main.java.personnel;
-
-import main.java.persistence.EmployeeRepository;
+package personnel;
 
 public abstract class Employee {
     private String firstName;
@@ -52,9 +50,5 @@ public abstract class Employee {
 
     public String getFullName() {
         return firstName + " " + this.lastName;
-    }
-
-    public static void save(Employee employee) {
-        new EmployeeRepository(employee).invoke();
     }
 }

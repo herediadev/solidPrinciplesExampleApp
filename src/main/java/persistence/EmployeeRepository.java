@@ -1,40 +1,37 @@
-package main.java.persistence;
+package persistence;
+
+import personnel.Employee;
+import personnel.FullTimeEmployee;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 
 public class EmployeeRepository {
-    private Employee employee;
 
-    public EmployeeRepository(Employee employee) {
-        this.employee = employee;
+    private final EmployeeFileSerializer employeeFileSerializer;
+
+    public EmployeeRepository(EmployeeFileSerializer employeeFileSerializer) {
+        this.employeeFileSerializer = employeeFileSerializer;
     }
 
-    public void invoke() {
-        try {
-            StringBuilder builder = new StringBuilder();
-            builder.append("### EMPLOYEE RECORD ###")
-                    .append(System.lineSeparator())
-                    .append("NAME: ")
-                    .append(employee.getFullName())
-                    .append(System.lineSeparator())
-                    .append("POSITION: ")
-                    .append(employee.getClass().getTypeName())
-                    .append(System.lineSeparator())
-                    .append("EMAIL: ")
-                    .append(employee.getEmail())
-                    .append(System.lineSeparator())
-                    .append("MONTHLY WAGE: ")
-                    .append(employee.getMonthlyIncome())
-                    .append(System.lineSeparator());
+    public List<Employee> findAll() {
+        Employee anna = new FullTimeEmployee("Anna Smith", 2000);
+        Employee billy = new FullTimeEmployee("Billy Leech", 920);
+        Employee steve = new FullTimeEmployee("Steve Jones", 800);
+        Employee magda = new FullTimeEmployee("Magda Iovan", 920);
 
-            Path path = Paths.get(employee.getFullName().replace(" ", "_") + ".rec");
-            Files.write(path, builder.toString().getBytes());
-            System.out.println("Saved employee" + employee.toString());
-        } catch (IOException e) {
-            System.out.println("Error: could not save employee . " + e);
-        }
+        return Arrays.asList(anna, billy, steve, magda);
     }
+
+    public void save(Employee employee) throws IOException {
+        String serializedEmployee = employeeFileSerializer.invoke(employee);
+
+        Path path = Paths.get(employee.getFullName().replace(" ", "_") + ".rec");
+        Files.write(path, serializedEmployee.getBytes());
+    }
+
 }
