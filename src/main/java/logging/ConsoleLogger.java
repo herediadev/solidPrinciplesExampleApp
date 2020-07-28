@@ -2,7 +2,7 @@ package logging;
 
 public class ConsoleLogger {
 
-    public void writeLog(String message) {
+    public void writeInfo(String message) {
         System.out.println("Info: " + message);
     }
 
