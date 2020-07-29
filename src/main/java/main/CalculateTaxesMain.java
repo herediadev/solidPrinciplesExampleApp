@@ -22,19 +22,22 @@ public class CalculateTaxesMain {
         Locale locale = new Locale("es", "CL");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
-        double totalTaxes = 0d;
-        for (Employee employee : employeeList) {
-            TaxCalculator taxCalculator = TaxCalculatorFactory.create(employee);
+        Double totalTaxes = employeeList
+                .stream()
+                .map(employee -> toEmployeeTaxAmount(consoleLogger, currencyFormatter, employee))
+                .reduce(0d, Double::sum);
 
-            //compute individual tax
-            double tax = taxCalculator.calculate(employee);
-            String formattedTax = currencyFormatter.format(tax);
-            consoleLogger.writeInfo(employee.getFullName() + " taxes: " + formattedTax);
-
-            //add to company total taxes
-            totalTaxes += tax;
-        }
         consoleLogger.writeInfo("Total Taxes = " + currencyFormatter.format(totalTaxes));
 
+    }
+
+    private static Double toEmployeeTaxAmount(ConsoleLogger consoleLogger, NumberFormat currencyFormatter, Employee employee) {
+        TaxCalculator taxCalculator = TaxCalculatorFactory.create(employee);
+
+        //compute individual tax
+        double tax = taxCalculator.calculate(employee);
+        String formattedTax = currencyFormatter.format(tax);
+        consoleLogger.writeInfo(employee.getFullName() + " taxes: " + formattedTax);
+        return tax;
     }
 }

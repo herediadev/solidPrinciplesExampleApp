@@ -2,6 +2,8 @@ package persistence;
 
 import personnel.Employee;
 import personnel.FullTimeEmployee;
+import personnel.Intern;
+import personnel.PartTimeEmployee;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -23,14 +25,16 @@ public class EmployeeRepository {
         Employee billy = new FullTimeEmployee("Billy Leech", 920);
         Employee steve = new FullTimeEmployee("Steve Jones", 800);
         Employee magda = new FullTimeEmployee("Magda Iovan", 920);
+        Employee john = new Intern("John Lee", 290);
+        Employee catherine = new PartTimeEmployee("Catherine Allison", 500);
 
-        return Arrays.asList(anna, billy, steve, magda);
+        return Arrays.asList(anna, billy, steve, magda, john, catherine);
     }
 
     public void save(Employee employee) throws IOException {
         String serializedEmployee = employeeFileSerializer.invoke(employee);
 
-        Path path = Paths.get("src/main/resources/" +employee.getFullName().replace(" ", "_") + ".rec");
+        Path path = Paths.get("src/main/resources/" + employee.getFullName().replace(" ", "_") + ".rec");
         Files.write(path, serializedEmployee.getBytes());
     }
 
