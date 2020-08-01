@@ -21,10 +21,9 @@ public class TaxCalculatorFactory {
 
     public static TaxCalculator create(Employee employee) {
         Supplier<TaxCalculator> taxCalculatorSupplier = CALCULATOR_HASH_MAP.get(employee.getClass().getSimpleName());
-        TaxCalculator taxCalculator = taxCalculatorSupplier.get();
 
-        Optional.ofNullable(taxCalculator).orElseThrow(() -> new RuntimeException("Invalid employee type"));
+        Optional.ofNullable(taxCalculatorSupplier).orElseThrow(() -> new RuntimeException("Invalid employee type"));
 
-        return taxCalculator;
+        return taxCalculatorSupplier.get();
     }
 }

@@ -1,9 +1,6 @@
 package persistence;
 
-import personnel.Employee;
-import personnel.FullTimeEmployee;
-import personnel.Intern;
-import personnel.PartTimeEmployee;
+import personnel.*;
 
 import java.io.IOException;
 import java.nio.file.Files;

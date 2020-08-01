@@ -51,4 +51,7 @@ public abstract class Employee {
     public String getFullName() {
         return firstName + " " + this.lastName;
     }
+
+    public void requestTimeOff(int nbDays, Employee employee){
+    }
 }
