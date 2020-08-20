@@ -3,6 +3,7 @@ package main;
 import logging.ConsoleLogger;
 import persistence.EmployeeFileSerializer;
 import persistence.EmployeeFileRepository;
+import persistence.EmployeeRepository;
 import personnel.ServiceLicenseAgreement;
 import personnel.Subcontractor;
 
@@ -14,7 +15,7 @@ public class ApproveSLAMain {
     public static void main(String[] args) {
         ConsoleLogger consoleLogger = new ConsoleLogger();
         EmployeeFileSerializer employeeFileSerializer = new EmployeeFileSerializer();
-        EmployeeFileRepository employeeRepository = new EmployeeFileRepository(employeeFileSerializer);
+        EmployeeRepository employeeRepository = new EmployeeFileRepository(employeeFileSerializer);
 
         //Define SLA
         int minTimeOffPercent = 98;

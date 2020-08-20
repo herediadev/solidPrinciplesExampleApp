@@ -15,13 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class EmployeeFileRepository {
+public class EmployeeFileRepository implements EmployeeRepository {
     private final EmployeeFileSerializer employeeFileSerializer;
 
     public EmployeeFileRepository(EmployeeFileSerializer employeeFileSerializer) {
         this.employeeFileSerializer = employeeFileSerializer;
     }
 
+    @Override
     public List<Employee> findAll() {
         List<Employee> employees = new ArrayList<>();
 
@@ -46,6 +47,7 @@ public class EmployeeFileRepository {
         return employees;
     }
 
+    @Override
     public void save(Employee employee) throws IOException {
         String serializedEmployee = employeeFileSerializer.serialize(employee);
 

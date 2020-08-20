@@ -3,6 +3,7 @@ package main;
 import logging.ConsoleLogger;
 import persistence.EmployeeFileSerializer;
 import persistence.EmployeeFileRepository;
+import persistence.EmployeeRepository;
 import personnel.Employee;
 import taxes.TaxCalculator;
 import taxes.TaxCalculatorFactory;
@@ -15,7 +16,7 @@ public class CalculateTaxesMain {
     public static void main(String[] args) {
         ConsoleLogger consoleLogger = new ConsoleLogger();
         EmployeeFileSerializer employeeFileSerializer = new EmployeeFileSerializer();
-        EmployeeFileRepository employeeRepository = new EmployeeFileRepository(employeeFileSerializer);
+        EmployeeRepository employeeRepository = new EmployeeFileRepository(employeeFileSerializer);
 
         List<Employee> employeeList = employeeRepository.findAll();
 

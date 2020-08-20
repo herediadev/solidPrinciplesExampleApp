@@ -9,15 +9,16 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
 
-public class EmailSender {
-    public static void notify(Employee employee) {
+public class EmailSender implements EmployeeNotifier {
+
+    @Override
+    public void send(Employee employee) {
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", true);
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.host", "smtp.mailtrap.io");
         properties.put("mail.smtp.port", "2525");
         properties.put("mail.smtp.ssl.trust", "smtp.mailtrap.io");
-
 
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
@@ -54,6 +55,5 @@ public class EmailSender {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 }

@@ -1,19 +1,22 @@
 package payment;
 
-import notifications.EmailSender;
-import persistence.EmployeeFileRepository;
-import persistence.EmployeeFileSerializer;
+import notifications.EmployeeNotifier;
+import persistence.EmployeeRepository;
 import personnel.Employee;
 
 import java.util.List;
 
 public class PaymentProcessor {
 
-    private final EmployeeFileRepository employeeFileRepository;
+    private final EmployeeRepository employeeFileRepository;
+    private final EmployeeNotifier emailSender;
 
-    public PaymentProcessor() {
-        EmployeeFileSerializer employeeFileSerializer = new EmployeeFileSerializer();
-        employeeFileRepository = new EmployeeFileRepository(employeeFileSerializer);
+    public PaymentProcessor(
+            EmployeeRepository employeeFileRepository,
+            EmployeeNotifier emailSender
+    ) {
+        this.employeeFileRepository = employeeFileRepository;
+        this.emailSender = emailSender;
     }
 
     public int sendPayments() {
@@ -22,7 +25,7 @@ public class PaymentProcessor {
 
         for (Employee employee : employees) {
             totalPayment += employee.getMonthlyIncome();
-            EmailSender.notify(employee);
+            emailSender.send(employee);
         }
 
         return totalPayment;
